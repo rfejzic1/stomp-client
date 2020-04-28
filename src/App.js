@@ -29,7 +29,8 @@ const App = () => {
     // third arg is onError callback
     stompClient.connect({}, () => {
       stompClient.subscribe(`/topic/news`, msg => {
-        setResponse(res => [msg.body, ...res]);
+        const data = JSON.parse(msg.body);
+        setResponse(res => [data, ...res]);
       });
     }, err => console.error(err));
 
@@ -44,7 +45,7 @@ const App = () => {
     // Send message to the server:
     // first arg is the endpoint
     // second arg is the headers
-    // third arg is the data to be sent; in this case a simple string
+    // third arg is the data to be sent
     stompClient.send('/app/news', {}, message);
     setMessage('');
   }
@@ -53,14 +54,11 @@ const App = () => {
 
   return (
     <div className="App">
-      <h1>Lols</h1>
+      <h1>Chat</h1>
       <input type="text" name="message" value={message} onChange={handleInput} onKeyDown={handleHi} />
       <input type="button" value="Send" onClick={handleHi} />
       <ul>
-        {response.map(line => {
-          const data = JSON.parse(line);
-          return <li key={data.id}>{data.message}</li>
-        })}
+        {response.map(data => <li key={data.id}>{data.message}</li>)}
       </ul>
     </div>
   );
