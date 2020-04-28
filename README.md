@@ -19,7 +19,7 @@ Use the connect method to connect the client. The ``onConnect`` callback functio
 stompClient.connect(headers, onConnect, onError);
 ```
 
-Once connected (in the onConnect callback) subscribe to the desired topics:
+Once connected (in the ``onConnect`` callback) subscribe to the desired topics:
 
 ```javascript
 stompClient.subscribe(`/topic/news`, onReceive);
