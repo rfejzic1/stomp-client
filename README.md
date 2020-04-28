@@ -13,7 +13,7 @@ const socket = new SockJS('http://localhost:8080/ws');
 const stompClient = Stomp.over(socket);
 ```
 
-Use the connect method to connect the client. The onConnect callback function is called if the connection has been successfully established. Pass an empty object ``{}`` if no headers are required.
+Use the connect method to connect the client. The ``onConnect`` callback function is called if the connection has been successfully established. Pass an empty object ``{}`` if no headers are required.
 
 ```javascript
 stompClient.connect(headers, onConnect, onError);
@@ -22,7 +22,7 @@ stompClient.connect(headers, onConnect, onError);
 Once connected (in the onConnect callback) subscribe to the desired topics:
 
 ```javascript
-stompClient.subscribe(`/topic/news`, onSubscribe);
+stompClient.subscribe(`/topic/news`, onReceive);
 ```
 
 Use the send method to send a message to the server. Pass an empty object ``{}`` if no headers are required.
