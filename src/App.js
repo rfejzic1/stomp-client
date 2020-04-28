@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 import * as SockJS from 'sockjs-client';
 import * as Stomp from 'stompjs';
 
-const SERVER_URL = 'http://localhost:8080/ws';
+const SERVER_URL = 'http://stomp-test.herokuapp.com/ws';
 let socket;
 let stompClient;
 
@@ -15,7 +15,7 @@ const App = () => {
   useEffect(() => {
     const onConnect = () => {
       stompClient.subscribe(`/topic/news`, msg => {
-        setResponse([msg.body, ...response]);
+        setResponse(res => [msg.body, ...res]);
       });
     }
 
@@ -24,7 +24,7 @@ const App = () => {
     stompClient.connect({}, onConnect, err => console.error(err));
 
     return () => stompClient.disconnect();
-  }, [response]);
+  }, []);
 
   const handleHi = e => {
     if((e.key && e.key !== 'Enter') || e.target.value === '') {
